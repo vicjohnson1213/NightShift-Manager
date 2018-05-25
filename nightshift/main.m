@@ -7,11 +7,32 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "CBBlueLightClient.h"
 
 int main(int argc, const char * argv[]) {
-    @autoreleasepool {
-        // insert code here...
-        NSLog(@"Hello, World!");
+    //    @autoreleasepool {
+    NSString *argument;
+    argument = (argc == 1) ? @"help" : [NSString stringWithUTF8String:argv[1]];
+    
+    CBBlueLightClient *client = [CBBlueLightClient new];
+    BlueLightStatus status;
+    
+    [client getBlueLightStatus:&status];
+    
+    if ([argument isEqualToString:@"on"]) {
+        [client setEnabled:YES];
+    } else if ([argument isEqualToString:@"off"]) {
+        [client setEnabled:NO];
+    } else if ([argument isEqualToString:@"toggle"]) {
+        if (status.enabled) {
+            [client setEnabled:NO];
+        } else {
+            [client setEnabled:YES];
+        }
+    } else {
+        printf("Usage: nightshift <on|off|toggle|help>\n");
+        return 1;
     }
+    
     return 0;
 }
