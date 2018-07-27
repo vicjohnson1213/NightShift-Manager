@@ -10,7 +10,6 @@
 #import "CBBlueLightClient.h"
 
 int main(int argc, const char * argv[]) {
-    //    @autoreleasepool {
     NSString *argument;
     argument = (argc == 1) ? @"help" : [NSString stringWithUTF8String:argv[1]];
     
@@ -23,15 +22,12 @@ int main(int argc, const char * argv[]) {
         [client setEnabled:YES];
     } else if ([argument isEqualToString:@"off"]) {
         [client setEnabled:NO];
-    } else if ([argument isEqualToString:@"toggle"]) {
+    } else {
         if (status.enabled) {
             [client setEnabled:NO];
         } else {
             [client setEnabled:YES];
         }
-    } else {
-        printf("Usage: nightshift <on|off|toggle|help>\n");
-        return 1;
     }
     
     return 0;
